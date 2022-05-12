@@ -10,22 +10,74 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Presentacion
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Este docuemneto presenta varios graficos estadisticos de los datos de covid-19 en Costa Rica publicados por el ministed
+te docuemneto presenta varios graficos estadisticos de los datos de covid-19 en Costa Rica publicados por el ministed
+te docuemneto presenta varios graficos estadisticos de los datos de covid-19 en Costa Rica publicados por el ministed
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
+## Entradas 
+
+### Carga de datos
+
+
+
+```{r}
+covid <- read.csv(file="05_10_22_CSV_GENERAL.csv", sep = ";")
 ```
 
-## Including Plots
+## Procesamiento  
 
-You can also embed plots, for example:
+### Opciones generales
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r opciones-generales}
+options(scipen = 7)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+### Curacion de datos  
+```{r conversion-fecha}
+covid$FECHA <- as.Date(covid$FECHA, format = "%d/%m/%Y")
+```
+
+
+## Salidas  
+
+### Graficos  
+
+#### Casos Acumulados  
+
+##### Positivos  
+
+```{r casos-positivos-acumulados}
+plot(x = covid$FECHA, y = covid$positivos, main = "Casos Positivos acumulados de Covid-19 en Costa Rica", 
+     type = "l",
+     xlab = "Fecha",
+     ylab = "Casos", 
+     xaxt = "n", 
+     yaxt = "n")
+
+# Formato del eje X
+axis(side = 1,
+     covid$FECHA,
+     tick = FALSE,
+     format(covid$FECHA, "%m-%y"),
+     cex.axis = .7)  
+
+
+# Formato del eje Y
+axis(
+  side = 2,
+  covid$positivos,
+  labels = TRUE,  
+  at = seq(0, 1000000, by = 200000),
+  cex.axis = .7
+)
+
+
+
+```
+
+
+
