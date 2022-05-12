@@ -3,7 +3,14 @@ title: Analisis de datos de COVID-19 de Costa Rica - Graficos del paquete basico
   R
 author: "Jonathan Ugalde"
 date: '2022-05-12'
-output: html_document
+output:
+  html_document:
+    theme: readable    
+    toc: true
+    toc_depth: 5
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
 ---
 
 ```{r setup, include=FALSE}
@@ -77,7 +84,91 @@ axis(
 
 
 
-```
+```  
+##### Fallecidos  
+
+##### Positivos  
+
+```{r casos-fallecidos-acumulados}
+plot(x = covid$FECHA, y = covid$fallecidos, main = "Casos fallecidos acumulados de Covid-19 en Costa Rica", 
+     type = "l",
+     xlab = "Fecha",
+     ylab = "Fallecidos", 
+     xaxt = "n", 
+     yaxt = "n")
+
+# Formato del eje X
+axis(side = 1,
+     covid$FECHA,
+     tick = FALSE,
+     format(covid$FECHA, "%m-%y"),
+     cex.axis = .7)  
+
+
+# Formato del eje Y
+axis(
+  side = 2,
+  covid$fallecidos,
+  labels = TRUE,  
+  at = seq(0, 10000, by = 2000),
+  cex.axis = .7
+)
+
+
+
+```  
+
+#### Otros 
+
+```{r casos-otros-acumulados}
+plot(x = covid$FECHA, y = covid$positivos, main = "Casos de Covid-19 en Costa Rica", 
+     type = "l",
+     xlab = "Fecha",
+     ylab = "Casos", 
+     xaxt = "n", 
+     yaxt = "n",
+     col= "blue")
+
+# Formato del eje X
+axis(side = 1,
+     covid$FECHA,
+     tick = FALSE,
+     format(covid$FECHA, "%m-%y"),
+     cex.axis = .7)  
+
+# Leyenda
+legend(
+  x = "topleft",
+  inset = 0.03,
+  legend = c("Positivos", "Activos", "Recuperados", "Fallecidos"),
+  col = c("blue", "red", "green", "black"),
+  lty = 1,
+  cex = 0.7)
+
+
+# Formato del eje Y
+axis(
+  side = 2,
+  covid$positivos,
+  labels = TRUE,  
+  at = seq(0, 1000000, by = 200000),
+  cex.axis = .7
+)  
+
+# Casos Activos
+lines(covid$FECHA, covid$activos, col="red")
+
+# Casos recuperados
+lines(covid$FECHA, covid$RECUPERADOS, col="green")
+
+
+# Casos fallecidos
+lines(covid$FECHA, covid$fallecidos, col="black")
+
+
+
+```  
+
 
 
 
