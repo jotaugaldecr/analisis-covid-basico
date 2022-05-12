@@ -85,9 +85,8 @@ axis(
 
 
 ```  
-##### Fallecidos  
 
-##### Positivos  
+##### Fallecidos  
 
 ```{r casos-fallecidos-acumulados}
 plot(x = covid$FECHA, y = covid$fallecidos, main = "Casos fallecidos acumulados de Covid-19 en Costa Rica", 
@@ -164,6 +163,129 @@ lines(covid$FECHA, covid$RECUPERADOS, col="green")
 
 # Casos fallecidos
 lines(covid$FECHA, covid$fallecidos, col="black")
+
+
+
+```  
+
+#### Casos Diarios
+
+##### Positivos  
+
+```{r casos-nuevos-positivos}
+barplot(
+  height = covid$nue_posi,
+  names.arg = format(covid$FECHA, "%Y"),
+  ann = FALSE, 
+  bty = "n", 
+  tck = 0, 
+  xaxt = "n",
+  space = 1,
+  main = "Casos positivos por día",
+  xlab = "Fecha",
+  ylab = "Casos positivos",
+  col = "blue"
+)  
+
+# Fechas minima y máxima
+x_min <- min(covid$FECHA)
+x_max <- max(covid$FECHA)
+
+# Formato del eje X
+axis(
+  side = 1,
+  at = match(seq(as.Date(x_min), x_max, "years"), covid$FECHA) * (1 + 1),
+  labels = format(seq(as.Date(x_min), x_max, "years"), "%Y"),
+  lwd = 0)
+```  
+
+##### Fallecidos  
+
+```{r casos-nuevos-fallecidos}
+barplot(
+  height = covid$nue_falleci,
+  names.arg = format(covid$FECHA, "%Y"),
+  ann = FALSE, 
+  bty = "n", 
+  tck = 0, 
+  xaxt = "n",
+  space = 1,
+  main = "Casos fallecidos por día",
+  xlab = "Fecha",
+  ylab = "fallecidos",
+  col = "blue"
+)  
+
+# Fechas minima y máxima
+x_min <- min(covid$FECHA)
+x_max <- max(covid$FECHA)
+
+# Formato del eje X
+axis(
+  side = 1,
+  at = match(seq(as.Date(x_min), x_max, "years"), covid$FECHA) * (1 + 1),
+  labels = format(seq(as.Date(x_min), x_max, "years"), "%Y"),
+  lwd = 0)
+```
+
+
+## Ejercicios  
+
+### Grafico de barras 
+
+```{r casos-hospitalizados}
+barplot(
+  height = covid$nue_hospi,
+  names.arg = format(covid$FECHA, "%Y"),
+  ann = FALSE, 
+  bty = "n", 
+  tck = 0, 
+  xaxt = "n",
+  space = 1,
+  main = "Casos hospitalizados por día",
+  xlab = "Fecha",
+  ylab = "hospitalizados",
+  col = "blue"
+)  
+
+# Fechas minima y máxima
+x_min <- min(covid$FECHA)
+x_max <- max(covid$FECHA)
+
+# Formato del eje X
+axis(
+  side = 1,
+  at = match(seq(as.Date(x_min), x_max, "years"), covid$FECHA) * (1 + 1),
+  labels = format(seq(as.Date(x_min), x_max, "years"), "%Y"),
+  lwd = 0)
+```
+
+### Grafico lineas  
+
+```{r casos-salon}
+plot(x = covid$FECHA, y = covid$salon, main = "Casos en Salon de Covid-19 en Costa Rica", 
+     type = "l",
+     xlab = "Fecha",
+     ylab = "Casos", 
+     xaxt = "n", 
+     yaxt = "n")
+
+# Formato del eje X
+axis(side = 1,
+     covid$FECHA,
+     tick = FALSE,
+     format(covid$FECHA, "%m-%y"),
+     cex.axis = .7)  
+
+
+# Formato del eje Y
+axis(
+  side = 2,
+  covid$positivos,
+  labels = TRUE,  
+  at = seq(0, 1000000, by = 200000),
+  cex.axis = .7
+)
 
 
 
