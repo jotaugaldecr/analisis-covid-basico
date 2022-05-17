@@ -269,6 +269,7 @@ plot(x = covid$FECHA, y = covid$salon, main = "Casos en Salon de Covid-19 en Cos
      ylab = "Casos", 
      xaxt = "n", 
      yaxt = "n")
+lines(covid$FECHA, covid$UCI, col="red")
 
 # Formato del eje X
 axis(side = 1,
@@ -281,9 +282,9 @@ axis(side = 1,
 # Formato del eje Y
 axis(
   side = 2,
-  covid$positivos,
+  covid$salon,
   labels = TRUE,  
-  at = seq(0, 1000000, by = 200000),
+  at = seq(0, 1000, by = 250),
   cex.axis = .7
 )
 
